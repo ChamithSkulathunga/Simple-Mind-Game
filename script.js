@@ -106,28 +106,34 @@ function checkMatch(){
     const optionOne = cardsChoosen[0]; 
     const optionTwo = cardsChoosen[1]; 
 
-    // console.log(optionOne.id);
-    // console.log(optionTwo.id);
-
     const allCards = document.querySelectorAll('img');
-    // console.log(allCards[optionOne.id]);
 
-    // console.log(optionOne, optionTwo);
+    if(optionOne.id === optionTwo.id){
+        //same card selected
+        alert('You have selected the same card');
+        cardFlipBack(allCards[optionOne.id]);
 
-    if(optionOne.name === optionTwo.name){
+    }else if(optionOne.name === optionTwo.name){
         //if match
         allCards[optionOne.id].src = 'images/tick.png';
         allCards[optionTwo.id].src = 'images/tick.png';
+
+        allCards[optionOne.id].removeEventListener('click',flipCard);
+        allCards[optionTwo.id].removeEventListener('click',flipCard);
         marks = marks + 100 / 6; 
     }else{
         //if not match
-        allCards[optionOne.id].src = 'images/question.jpeg';
-        allCards[optionTwo.id].src = 'images/question.jpeg';
+        cardFlipBack(allCards[optionOne.id]);
+        cardFlipBack(allCards[optionTwo.id]);
     }
     
     // after matching reset the array
     cardsChoosen = [];
     displayMarks();
+}
+
+function cardFlipBack(selectedCard){
+    selectedCard.src = 'images/question.jpeg';
 }
 
 
